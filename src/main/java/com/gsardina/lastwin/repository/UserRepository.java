@@ -12,4 +12,7 @@ public interface UserRepository extends CrudRepository<UserEntity, Long> {
     @Query("select u from UserEntity u where u.email = :email")
     UserEntity findByEmail(@Param("email") String email);
 
+    @Query("select u from UserEntity u where u.username = :username")
+    UserEntity findByUsername(@Param("email") String username);
+
 }

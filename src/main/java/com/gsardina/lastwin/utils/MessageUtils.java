@@ -8,4 +8,6 @@ public class MessageUtils {
     public static final String DES_ESITO_KO = "Errori durante l'esecuzione dell'operazione";
     public static final String UTENTE_NON_TROVATO = "Utente non trovato";
     public static final String PASSWORD_ERRATA = "Password errata";
+    public static final String EMAIL_NON_DISPONIBILE = "L'email <placeholder> non risulta disponibile";
+    public static final String USERNAME_NON_DISPONIBILE = "L'username <placeholder> non risulta disponibile";
 }

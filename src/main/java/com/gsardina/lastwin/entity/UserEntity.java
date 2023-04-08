@@ -1,5 +1,6 @@
 package com.gsardina.lastwin.entity;
 
+import com.gsardina.lastwin.model.RegisterModel;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
@@ -28,4 +29,11 @@ public class UserEntity implements Serializable {
 
     @Column(name = "confirmed")
     private Boolean confirmed;
+
+    public void fillRegisterInformation(RegisterModel registerModel) {
+        this.username = registerModel.getUsername();
+        //salvare password codificata
+        this.password = registerModel.getPassword();
+        this.confirmed = false;
+    }
 }
