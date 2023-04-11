@@ -5,6 +5,8 @@ import com.gsardina.lastwin.entity.UserEntity;
 public interface UserService {
 
     Boolean existsByUsername(String username);
+    UserEntity findByUsername(String username);
     Boolean existsByEmail(String email);
-    void save(UserEntity userEntity);
+    String signup(UserEntity userEntity);
+    void confirmAccount(String username);
 }

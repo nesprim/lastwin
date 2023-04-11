@@ -29,6 +29,9 @@ public class UserEntity implements Serializable {
     @Column(name = "CONFIRMED")
     private Boolean confirmed;
 
+    @Column(name = "CONFIRM_CODE")
+    private String confirmCode;
+
     @OneToOne(fetch = FetchType.LAZY)
     @JoinTable(
             name = "USER_ROLES", schema = "L_S",
@@ -36,11 +39,12 @@ public class UserEntity implements Serializable {
             inverseJoinColumns = @JoinColumn(name = "ID_ROLE"))
     private RoleEntity role;
 
-    public UserEntity(String username, String email, String password, RoleEntity role) {
+    public UserEntity(String username, String email, String password, String confirmCode, RoleEntity role) {
         this.username = username;
         this.email = email;
         this.password = password;
         this.confirmed = false;
+        this.confirmCode = confirmCode;
         this.role = role;
     }
 
