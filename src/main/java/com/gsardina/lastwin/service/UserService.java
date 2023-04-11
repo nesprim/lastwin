@@ -1,12 +1,10 @@
 package com.gsardina.lastwin.service;
 
-import com.gsardina.lastwin.model.LoginModel;
-import com.gsardina.lastwin.model.RegisterModel;
-import com.gsardina.lastwin.model.UserCheckedModel;
-import com.gsardina.lastwin.model.UserModel;
+import com.gsardina.lastwin.entity.UserEntity;
 
 public interface UserService {
 
-    UserCheckedModel findByEmail(LoginModel loginModel);
-    UserModel register(RegisterModel registerModel);
+    Boolean existsByUsername(String username);
+    Boolean existsByEmail(String email);
+    void save(UserEntity userEntity);
 }

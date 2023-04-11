@@ -3,8 +3,8 @@ package com.gsardina.lastwin.model;
 import lombok.Data;
 
 @Data
-public class LoginModel {
+public class SigninModel {
 
-    String email;
+    String username;
     String password;
 }

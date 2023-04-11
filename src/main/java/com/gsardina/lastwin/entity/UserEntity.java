@@ -1,39 +1,47 @@
 package com.gsardina.lastwin.entity;
 
-import com.gsardina.lastwin.model.RegisterModel;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
 
 @Data
 @Entity
-@Table(name = "users", schema = "l_s")
+@NoArgsConstructor
+@Table(name = "USERS", schema = "L_S")
 public class UserEntity implements Serializable {
 
     @Id
-    @Column(name = "id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "ID")
     private Long id;
 
-    @Column(name = "username")
+    @Column(name = "USERNAME")
     private String username;
 
-    @Column(name = "email")
+    @Column(name = "EMAIL")
     private String email;
 
-    @Column(name = "password")
+    @Column(name = "PASSWORD")
     private String password;
 
-    @Column(name = "confirmed")
+    @Column(name = "CONFIRMED")
     private Boolean confirmed;
 
-    public void fillRegisterInformation(RegisterModel registerModel) {
-        this.username = registerModel.getUsername();
-        //salvare password codificata
-        this.password = registerModel.getPassword();
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinTable(
+            name = "USER_ROLES", schema = "L_S",
+            joinColumns = @JoinColumn(name = "ID_USER"),
+            inverseJoinColumns = @JoinColumn(name = "ID_ROLE"))
+    private RoleEntity role;
+
+    public UserEntity(String username, String email, String password, RoleEntity role) {
+        this.username = username;
+        this.email = email;
+        this.password = password;
         this.confirmed = false;
+        this.role = role;
     }
+
 }

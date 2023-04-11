@@ -3,10 +3,10 @@ package com.gsardina.lastwin.model;
 import lombok.Data;
 
 @Data
-public class UserModel {
+public class SignupModel {
 
-    private Long id;
     private String username;
     private String email;
-    private Boolean confirmed;
+    private String role;
+    private String password;
 }
