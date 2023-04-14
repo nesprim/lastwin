@@ -10,7 +10,6 @@ import com.gsardina.lastwin.utils.MessageUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -47,7 +46,7 @@ public class AuthController {
     private static final Logger logger = LoggerFactory.getLogger(AuthController.class);
 
     @PostMapping("/signin")
-    public ResponseEntity<ResponseModel<JwtResponseModel>> signin(@RequestBody SigninModel signinModel) {
+    public ResponseModel<JwtResponseModel> signin(@RequestBody SigninModel signinModel) {
         ResponseModel<JwtResponseModel> response = new ResponseModel<>();
 
         try {
@@ -69,58 +68,68 @@ public class AuthController {
                     userDetails.getConfirmed(),
                     roles));
 
+            response.setEsito(MessageUtils.OK);
             response.setMessage(MessageUtils.SIGNIN_SUCCESSFUL);
         } catch (BadCredentialsException e) {
-            logger.error(e.getMessage());
+            response = new ResponseModel<>(MessageUtils.KO, MessageUtils.BAD_CREDENTIALS);
 
-            return ResponseEntity.badRequest().body(new ResponseModel<>(MessageUtils.BAD_CREDENTIALS));
+            logger.error(e.getMessage());
         }
 
-        return ResponseEntity.ok(response);
+        return response;
     }
 
     @PostMapping("/signup")
-    public ResponseEntity<ResponseModel<?>> signup(@RequestBody SignupModel signupModel) {
-        if (userService.existsByUsername(signupModel.getUsername())) {
-            return ResponseEntity.badRequest().body(new ResponseModel<>(MessageUtils.USERNAME_UNAVAILABLE));
+    public ResponseModel<?> signup(@RequestBody SignupModel signupModel) {
+        ResponseModel<?> response;
+        try {
+            if (ERoleModel.USER.name().equals(signupModel.getRole())) {
+                if (userService.existsByUsername(signupModel.getUsername())) {
+                    response = new ResponseModel<>(MessageUtils.KO, MessageUtils.USERNAME_UNAVAILABLE);
+                } else if (userService.existsByEmail(signupModel.getEmail())) {
+                    response = new ResponseModel<>(MessageUtils.KO, MessageUtils.EMAIL_ALREADY_USED);
+                } else {
+                    String confirmCode = userService.signup(new UserEntity(signupModel.getUsername(), signupModel.getEmail(), encoder.encode(signupModel.getPassword()), MailUtils.generateConfirmCode(), roleService.findByName(ERoleModel.USER)));
+                    mailUtils.sendRegistrationMail(signupModel.getUsername(), signupModel.getEmail(), confirmCode);
+
+                    response = new ResponseModel<>(MessageUtils.OK, MessageUtils.SIGNUP_SUCCESSFUL);
+                }
+            } else {
+                response = new ResponseModel<>(MessageUtils.KO, MessageUtils.INVALID_ROLE);
+            }
+        } catch (Exception e) {
+            response = new ResponseModel<>(MessageUtils.KO, MessageUtils.MESSAGE_KO);
+
+            logger.error(e.getMessage());
         }
 
-        if (userService.existsByEmail(signupModel.getEmail())) {
-            return ResponseEntity.badRequest().body(new ResponseModel<>(MessageUtils.EMAIL_ALREADY_USED));
-        }
-
-        if (signupModel.getRole().equals(ERoleModel.USER.name())) {
-            String confirmCode = userService.signup(new UserEntity(signupModel.getUsername(), signupModel.getEmail(), encoder.encode(signupModel.getPassword()), MailUtils.generateConfirmCode(), roleService.findByName(ERoleModel.USER)));
-
-            mailUtils.sendRegistrationMail(signupModel.getUsername(), signupModel.getEmail(), confirmCode);
-        } else {
-            return ResponseEntity.badRequest().body(new ResponseModel<>(MessageUtils.INVALID_ROLE));
-        }
-
-        return ResponseEntity.ok(new ResponseModel<>(MessageUtils.SIGNUP_SUCCESSFUL));
+        return response;
     }
 
     @GetMapping("/confirm")
-    public ResponseEntity<ResponseModel<?>> confirm(@RequestParam("username") String username, @RequestParam("confirmCode") String confirmCode) {
+    public ResponseModel<?> confirm(@RequestParam("username") String username, @RequestParam("confirmCode") String confirmCode) {
+        ResponseModel<?> response;
         try {
             UserEntity userEntity = userService.findByUsername(username);
 
             if (confirmCode != null && confirmCode.equals(userEntity.getConfirmCode())) {
                 if (userEntity.getConfirmed()) {
-                    return ResponseEntity.badRequest().body(new ResponseModel<>(MessageUtils.ACCOUNT_ALREADY_CONFIRMED));
+                    response = new ResponseModel<>(MessageUtils.KO, MessageUtils.ACCOUNT_ALREADY_CONFIRMED);
                 } else {
                     userService.confirmAccount(username);
+
+                    response = new ResponseModel<>(MessageUtils.OK, MessageUtils.ACCOUNT_CONFIRMED);
                 }
             } else {
-                return ResponseEntity.badRequest().body(new ResponseModel<>(MessageUtils.INVALID_CONFIRM_CODE));
+                response = new ResponseModel<>(MessageUtils.KO, MessageUtils.INVALID_CONFIRM_CODE);
             }
         } catch (Exception e) {
-            logger.error(e.getMessage());
+            response = new ResponseModel<>(MessageUtils.KO, MessageUtils.INVALID_USERNAME);
 
-            return ResponseEntity.badRequest().body(new ResponseModel<>(MessageUtils.INVALID_USERNAME));
+            logger.error(e.getMessage());
         }
 
-        return ResponseEntity.ok(new ResponseModel<>(MessageUtils.ACCOUNT_CONFIRMED));
+        return response;
     }
 
 }

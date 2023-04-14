@@ -2,27 +2,38 @@
 
 html, body {
   height: 100%;
+  overflow: hidden;
 }
 
 body {
   font-family: Roboto, "Helvetica Neue", sans-serif;
 }
 
-.loader-spinner {
+.overlay {
+  height:100vh;
+  width:100%;
+  background-color:rgba(0, 0, 0, 0.286);
+  z-index:    10;
+  top:        0; 
+  left:       0; 
+  position:   fixed;
+}
+
+.center {
   position: absolute;
-  height: 100% !important;
-  width: 100% !important;
-  margin-left: auto;
+  top: 50%;
+  left: 50%;
+  -moz-transform: translateX(-50%) translateY(-50%);
+  -webkit-transform: translateX(-50%) translateY(-50%);
+  transform: translateX(-50%) translateY(-50%);
+}
 
+.loader-spinner {
   circle {
-    stroke: #005588;
-  }
-
-  svg {
-    top: 50% !important;
-    left: 50% !important;
+    stroke: blueviolet;
   }
 }
+
 
 .page-style {
   padding: 10px;
@@ -96,13 +107,13 @@ mat-form-field {
 }
 
 .page-font {
-  font-size: 30px !important;
   font-family: lastwin-app, sans-serif;
   text-align: center;
 }
 
 .input-field {
   height: 75px !important;
+  font-size: 30px !important;
 }
 
 .clickable:hover {

@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { AuthService } from 'src/app/services/auth.service';
+import { LoginModel } from 'src/app/model/login.model';
 
 @Component({
     selector: 'app-auth',
@@ -7,6 +9,28 @@ import { Component, OnInit } from '@angular/core';
 })
 
 export class AuthComponent implements OnInit {
+    loading: boolean = false;
+    loginModel: LoginModel = new LoginModel;
 
-    ngOnInit(): void { }
+    constructor(
+        private authService: AuthService
+    ) {}
+
+    ngOnInit(): void { 
+        //leggere token jwt
+    }
+
+    signin() {
+        this.loading = true;
+
+        this.authService.signin(this.loginModel).subscribe(response => {
+            if (response.esito === 'OK') {
+                localStorage.setItem('token_jwt_lastwin', response.data.token);
+            } else {
+                //mostrare popup
+            }
+            
+            this.loading = false;
+        })
+    }
 }
