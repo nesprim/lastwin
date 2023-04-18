@@ -1,4 +1,6 @@
 @import "~bootstrap/dist/css/bootstrap.css";
+@import "~@angular/material/prebuilt-themes/indigo-pink.css";
+@import url("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.4/font/bootstrap-icons.css");
 
 html, body {
   height: 100%;
@@ -30,18 +32,12 @@ body {
 
 .loader-spinner {
   circle {
-    stroke: blueviolet;
+    stroke: indigo;
   }
 }
 
-
 .page-style {
   padding: 10px;
-}
-
-.label-style {
-  color: blueviolet;
-  font-size: 30px !important;
 }
 
 mat-form-field {
@@ -100,22 +96,61 @@ mat-form-field {
 .buttonApp {
   width: 100%;
   height: 50px;
-  background: blueviolet !important;
+  background: indigo !important;
   border-radius: 15px;
   font-family: lastwin-app, sans-serif;
   font-size: 25px;
 }
 
-.page-font {
-  font-family: lastwin-app, sans-serif;
+.title-font {
+  font-family: title, sans-serif;
   text-align: center;
+  font-size: 100px;
+  margin: 0 20px;
 }
 
-.input-field {
-  height: 75px !important;
-  font-size: 30px !important;
+.page-font {
+  font-family: lastwin-app, sans-serif !important;
+  text-align: center !important;
+  font-size: 15px !important;
+}
+
+.page-font-error {
+  font-family: lastwin-app, sans-serif !important;
+  text-align: center !important;
+  font-size: 12px;
+}
+
+.clickable {
+  font-size: 15px;
 }
 
 .clickable:hover {
   cursor: pointer;
+}
+
+.error-text {
+  color: red;
+}
+
+.submit-form {
+  margin-top: 30px;
+}
+
+.mat-button {
+  border-radius: 5px;
+  color: #FFF;
+}
+
+.cancel {
+  background: blueviolet !important;
+  color: #FFF !important;
+}
+
+.confirm {
+  background: indigo !important;
+}
+
+.error-margin {
+  margin-bottom: 25px;
 }

@@ -1,0 +1,94 @@
+@import '~@angular/material/theming';
+
+@include mat-core();
+
+$primary-palette: (
+  50 : #e5f1e0,
+  100 : #bedcb3,
+  200 : #92c480,
+  300 : #66ac4d,
+  400 : #469b26,
+  500 : #258900,
+  600 : #218100,
+  700 : #1b7600,
+  800 : #166c00,
+  900 : #0d5900,
+  A100 : #92ff8b,
+  A200 : #63ff58,
+  A400 : #33ff25,
+  A700 : #1cff0b,
+  contrast: (
+    50 : #000000,
+    100 : #000000,
+    200 : #000000,
+    300 : #000000,
+    400 : #ffffff,
+    500 : #ffffff,
+    600 : #ffffff,
+    700 : #ffffff,
+    800 : #ffffff,
+    900 : #ffffff,
+    A100 : #000000,
+    A200 : #000000,
+    A400 : #000000,
+    A700 : #000000,
+  )
+);
+
+$app-primary: mat-palette($primary-palette);
+$app-accent: mat-palette($mat-pink, A200, A100, A400);
+
+$app-warn: mat-palette($mat-red);
+
+$app-theme: mat-light-theme($app-primary, $app-accent, $app-warn);
+
+@include angular-material-theme($app-theme);
+
+button {
+  &.mat-button, &.mat-flat-button, &.mat-icon-button, &.mat-stroked-button {
+    border-radius: 0;
+  }
+}
+
+mat-form-field {
+  &.mat-form-field, &.mat-form-field-appearance-legacy {
+    .mat-form-field-underline {
+      height: 0;
+
+      .mat-form-field-ripple {
+        display: none;
+      }
+    }
+
+    &.border {
+      .mat-input-element {
+        border: 1px solid;
+        padding: 8px 0;
+        border-radius: 2px;
+      }
+    }
+
+    mat-label {
+      color: #000000;
+      font-size: 18px;
+      font-weight: 500;
+    }
+
+    .mat-form-field-infix {
+      .mat-select {
+        border: 1px solid rgba(0, 0, 0, 0.33);
+        padding: 8px;
+        background: #fff;
+
+        .mat-select-arrow-wrapper {
+          border-left: 1px solid;
+          padding-left: 8px;
+        }
+
+        .mat-select-arrow {
+          color: #005588;
+        }
+      }
+    }
+  }
+}

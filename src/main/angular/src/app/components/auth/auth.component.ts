@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from 'src/app/services/auth.service';
 import { LoginModel } from 'src/app/model/login.model';
+import { PopupDialogService } from 'src/app/services/popup-dialog.service';
 
 @Component({
     selector: 'app-auth',
@@ -13,7 +14,8 @@ export class AuthComponent implements OnInit {
     loginModel: LoginModel = new LoginModel;
 
     constructor(
-        private authService: AuthService
+        private authService: AuthService,
+        private popupDialogService: PopupDialogService
     ) {}
 
     ngOnInit(): void { 
@@ -27,10 +29,14 @@ export class AuthComponent implements OnInit {
             if (response.esito === 'OK') {
                 localStorage.setItem('token_jwt_lastwin', response.data.token);
             } else {
-                //mostrare popup
+                this.popupDialogService.openPopupDialog('350px', response);
             }
             
             this.loading = false;
         })
+    }
+
+    showSignupPopup() {
+        this.popupDialogService.openSignupDialog();
     }
 }

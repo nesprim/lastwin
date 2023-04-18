@@ -16,4 +16,10 @@ export class AuthService {
             map(response => response)
         );
     }
+
+    signup(registerModel: any): Observable<any> {
+        return this.http.post<any>(`/auth/signup`, registerModel).pipe(
+            map(response => response)
+        )
+    }
 }

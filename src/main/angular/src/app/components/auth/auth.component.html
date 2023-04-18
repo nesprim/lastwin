@@ -1,26 +1,28 @@
 <div class="page-style">
-    <div *ngIf="false" class="row justify-content-center">
-        <mat-form-field class="row page-font col-9 col-sm-7 col-md-6 col-lg-4 col-xl-3" appearance="fill">
-            <mat-label class="label-style">Username</mat-label>
-            <input class="input-field" matInput required #username placeholder="Username" [(ngModel)]="loginModel.username">
-        </mat-form-field>
-    </div>
-    <div *ngIf="false" class="row justify-content-center">
-        <mat-form-field class="row page-font col-9 col-sm-7 col-md-6 col-lg-4 col-xl-3" appearance="fill">
-            <mat-label class="label-style">Password</mat-label>
-            <input class="input-field" type="password" matInput required #password placeholder="Password" [(ngModel)]="loginModel.password">
-        </mat-form-field>
-    </div>
-    <div class="row justify-content-center">
-        <div class="row col-4 col-sm-3 col-md-2 col-lg-2 col-xl-1">
-            <button class="btn clickable btn-success buttonApp" (click)="signin()">Login</button>
+    <form #loginForm="ngForm">
+        <div class="row justify-content-center">
+            <mat-form-field class="row page-font col-9 col-sm-7 col-md-6 col-lg-4 col-xl-3" appearance="fill">
+                <mat-label class="page-font">Username</mat-label>
+                <input id="username" name="username" class="page-font" matInput matNativeControl required #username placeholder="Username" [(ngModel)]="loginModel.username">
+            </mat-form-field>
         </div>
-    </div>
-    <div *ngIf="false" class="row justify-content-center signup-link">
-        <div class="row col-10">
-            <p class="page-font clickable">Se non sei ancora registrato clicca qui!</p>
+        <div class="row justify-content-center">
+            <mat-form-field class="row page-font col-9 col-sm-7 col-md-6 col-lg-4 col-xl-3" appearance="fill">
+                <mat-label class="page-font">Password</mat-label>
+                <input id="password" name="password" class="page-font" type="password" matInput matNativeControl required #password placeholder="Password" [(ngModel)]="loginModel.password">
+            </mat-form-field>
         </div>
-    </div>
+        <div class="row justify-content-center">
+            <div class="row col-4 col-sm-3 col-md-2 col-lg-2 col-xl-1">
+                <button class="btn clickable btn-success buttonApp" [disabled]="loginForm.invalid" (click)="signin()">Login</button>
+            </div>
+        </div>
+        <div class="row justify-content-center signup-link">
+            <div class="row col-10">
+                <p class="page-font clickable" (click)="showSignupPopup()">Se non sei ancora registrato clicca qui!</p>
+            </div>
+        </div>
+    </form>
 </div>
 <div *ngIf="loading" class="overlay">
     <div class="center">

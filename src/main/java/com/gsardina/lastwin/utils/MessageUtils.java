@@ -6,7 +6,7 @@ public class MessageUtils {
     public static final String MESSAGE_OK = "Operazione avvenuta con successo";
     public static final String MESSAGE_KO = "Errori durante l'operazione";
     public static final String SIGNIN_SUCCESSFUL = "Login effettuato con successo";
-    public static final String SIGNUP_SUCCESSFUL = "Registrazione effettuata con successo";
+    public static final String SIGNUP_SUCCESSFUL = "Registrazione effettuata con successo\nRiceverete a breve una mail di conferma";
     public static final String BAD_CREDENTIALS = "Credenziali inserite errate";
     public static final String USERNAME_UNAVAILABLE = "Username non disponibile";
     public static final String INVALID_USERNAME = "Username non valido";
