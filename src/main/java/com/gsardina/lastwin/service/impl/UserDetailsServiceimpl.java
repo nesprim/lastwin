@@ -3,6 +3,7 @@ package com.gsardina.lastwin.service.impl;
 import com.gsardina.lastwin.entity.UserEntity;
 import com.gsardina.lastwin.model.UserDetailsModel;
 import com.gsardina.lastwin.repository.UserRepository;
+import com.gsardina.lastwin.utils.MessageUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -18,7 +19,7 @@ public class UserDetailsServiceimpl implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String username) {
         UserEntity userEntity = userRepository.findByUsername(username)
-                .orElseThrow(() -> new UsernameNotFoundException("User not found with username: " + username));
+                .orElseThrow(() -> new UsernameNotFoundException(MessageUtils.USER_NOT_FOUND_MESSAGE + username));
 
         return UserDetailsModel.build(userEntity);
     }
