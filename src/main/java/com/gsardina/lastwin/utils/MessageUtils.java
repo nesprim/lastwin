@@ -16,6 +16,7 @@ public class MessageUtils {
     public static final String EMAIL_ALREADY_USED = "Email già utilizzata";
     public static final String INVALID_ROLE = "Ruolo non valido";
     public static final String CONFIRM_SIGNUP = "Conferma Registrazione";
+    public static final String ACCOUNT_NOT_CONFIRMED = "Account non ancora confermato";
     public static final String MAIL_BODY_CONFIRM_SIGNUP = """
             Gentile <username>,
             per confermare la registrazione del suo account la invitiamo a cliccare sul seguente link: <link>

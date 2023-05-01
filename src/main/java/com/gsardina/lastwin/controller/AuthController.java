@@ -57,19 +57,35 @@ public class AuthController {
             String jwt = jwtUtils.generateJwtToken(authentication);
 
             UserDetailsModel userDetails = (UserDetailsModel) authentication.getPrincipal();
-            List<String> roles = userDetails.getAuthorities().stream()
-                    .map(GrantedAuthority::getAuthority).toList();
 
-            response.setData(new JwtResponseModel(
-                    jwt,
-                    userDetails.getId(),
-                    userDetails.getUsername(),
-                    userDetails.getEmail(),
-                    userDetails.getConfirmed(),
-                    roles));
+            if (userDetails.getConfirmed()) {
+                List<String> roles = userDetails.getAuthorities().stream()
+                        .map(GrantedAuthority::getAuthority).toList();
 
-            response.setEsito(MessageUtils.OK);
-            response.setMessage(MessageUtils.SIGNIN_SUCCESSFUL);
+                response.setData(new JwtResponseModel(
+                        jwt,
+                        userDetails.getId(),
+                        userDetails.getUsername(),
+                        userDetails.getEmail(),
+                        true,
+                        roles
+                ));
+
+                response.setEsito(MessageUtils.OK);
+                response.setMessage(MessageUtils.SIGNIN_SUCCESSFUL);
+            } else {
+                response.setData(new JwtResponseModel(
+                        null,
+                        userDetails.getId(),
+                        userDetails.getUsername(),
+                        userDetails.getEmail(),
+                        false,
+                        null
+                ));
+
+                response.setEsito(MessageUtils.KO);
+                response.setMessage(MessageUtils.ACCOUNT_NOT_CONFIRMED);
+            }
         } catch (BadCredentialsException e) {
             response = new ResponseModel<>(MessageUtils.KO, MessageUtils.BAD_CREDENTIALS);
 

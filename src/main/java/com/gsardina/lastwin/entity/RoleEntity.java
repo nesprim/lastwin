@@ -8,14 +8,14 @@ import java.io.Serializable;
 
 @Data
 @Entity
-@Table(name = "ROLES", schema = "L_S")
+@Table(name = "roles", schema = "lastwin")
 public class RoleEntity implements Serializable {
 
     @Id
-    @Column(name = "ID")
+    @Column(name = "id")
     private Long id;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "NAME")
+    @Column(name = "name")
     private ERoleModel name;
 }
