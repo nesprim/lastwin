@@ -21,7 +21,7 @@ public class MessageUtils {
     public static final String ACCOUNT_NOT_CONFIRMED = "Account non ancora confermato";
     public static final String MAIL_BODY_CONFIRM_SIGNUP = """
             Gentile <username>,
-            per confermare la registrazione del suo account la invitiamo a cliccare sul seguente link: <link>
+            per confermare la registrazione del suo account la invitiamo di utilizzare il seguente codice: <code>
 
             Si prega di non rispondere a tale mail,
             Lastwin""";

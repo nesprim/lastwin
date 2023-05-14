@@ -43,11 +43,7 @@ public class MailUtils {
     }
 
     public static String generateConfirmCode() {
-        return RandomStringUtils.randomAlphanumeric(20);
-    }
-
-    private String generateLink(String username, String confirmCode) {
-        return baseURL + "/auth/confirm?username=" + username + "&confirmCode=" + confirmCode;
+        return RandomStringUtils.randomNumeric(6);
     }
 
     public void sendRegistrationMail(String username, String email, String confirmCode) {
@@ -67,7 +63,7 @@ public class MailUtils {
             String body = MessageUtils.MAIL_BODY_CONFIRM_SIGNUP;
 
             body = body.replace("<username>", username);
-            body = body.replace("<link>", generateLink(username, confirmCode));
+            body = body.replace("<code>", confirmCode);
 
             message.setText(body);
 
