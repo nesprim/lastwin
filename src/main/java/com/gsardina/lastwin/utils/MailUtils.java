@@ -30,7 +30,7 @@ public class MailUtils {
     @Value("${lastwin.baseURL}")
     private String baseURL;
 
-    private Properties mailProperties = new Properties();
+    private final Properties mailProperties = new Properties();
 
     private static final Logger logger = LoggerFactory.getLogger(MailUtils.class);
 

@@ -9,7 +9,6 @@ public class MessageUtils {
     public static final String SIGNUP_SUCCESSFUL = "Registrazione effettuata con successo\nRiceverete a breve una mail di conferma";
     public static final String BAD_CREDENTIALS = "Credenziali inserite errate";
     public static final String USER_NOT_FOUND_MESSAGE = "User not found with username: ";
-    public static final String LEAGUE_NOT_FOUND_MESSAGE = "League not found with name: ";
     public static final String USERNAME_UNAVAILABLE = "Username non disponibile";
     public static final String INVALID_USERNAME = "Username non valido";
     public static final String INVALID_CONFIRM_CODE = "Codice conferma non valido";
