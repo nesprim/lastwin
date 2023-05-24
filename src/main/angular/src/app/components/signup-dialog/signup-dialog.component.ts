@@ -10,6 +10,7 @@ import { MatDialogRef } from '@angular/material/dialog';
   styleUrls: ['./signup-dialog.component.scss']
 })
 export class SignupDialogComponent implements OnInit {
+  
   loading: boolean = false;
   registerModel: RegisterModel = new RegisterModel;
 
@@ -27,11 +28,11 @@ export class SignupDialogComponent implements OnInit {
     this.authService.signup(this.registerModel).subscribe(response => {
       if (response.esito === 'OK') {
         this.dialogRef.close();
-      }
+      } 
+        
+      this.loading = false;
       this.popupDialogService.openPopupDialog('350px', response);
     })
-
-    this.loading = false;
   }
 
 }
