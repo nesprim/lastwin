@@ -1,0 +1,19 @@
+<div mat-dialog-title class="title-dialog page-font">Conferma Email</div>
+<form #confirmForm="ngForm">
+    <div mat-dialog-content class="container">
+        <div class="row justify-content-evenly">
+            <mat-form-field class="col-10" appearance="fill">
+                <mat-label class="page-font">Codice Conferma</mat-label>
+                <input id="confirmCode" name="confirmCode" class="page-font" matINput matNativeControl required #confirmCode placeholder="Username" [(ngModel)]="confirmEmailModel.confirmCode" pattern="^[0-9]{6}$">
+            </mat-form-field>
+        </div>
+        <div class="row justify-content-evenly submit-form">
+            <button mat-flat-button type="submit" cdkFocusInitial color="indigo" class="btn clickable btn-success confirm col-4 col-lg-2 page-font" [disabled]="confirmForm.disabled" (click)="confirmEmail()">Conferma</button>
+        </div>
+    </div>
+</form>
+<div *ngIf="loading" class="overlay">
+    <div class="center">
+        <mat-progress-spinner mode="indeterminate" class="loader-spinner" diameter="50"></mat-progress-spinner>
+    </div>
+</div>

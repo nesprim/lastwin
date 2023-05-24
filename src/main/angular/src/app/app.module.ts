@@ -13,13 +13,15 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { NgModule } from '@angular/core';
 import { PopupDialogComponent } from './components/popup-dialog/popup-dialog.component';
 import { SignupDialogComponent } from './components/signup-dialog/signup-dialog.component';
+import { ConfirmEmailDialogComponent } from './components/confirm-email-dialog/confirm-email-dialog.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     AuthComponent,
     PopupDialogComponent,
-    SignupDialogComponent
+    SignupDialogComponent,
+    ConfirmEmailDialogComponent
   ],
   imports: [
     AppRoutingModule,
