@@ -6,7 +6,7 @@ public class MessageUtils {
     public static final String MESSAGE_OK = "Operazione avvenuta con successo";
     public static final String MESSAGE_KO = "Errori durante l'operazione";
     public static final String SIGNIN_SUCCESSFUL = "Login effettuato con successo";
-    public static final String SIGNUP_SUCCESSFUL = "Registrazione effettuata con successo\nRiceverete a breve una mail di conferma";
+    public static final String SIGNUP_SUCCESSFUL = "Registrazione effettuata con successo. Riceverete a breve una mail di conferma";
     public static final String BAD_CREDENTIALS = "Credenziali inserite errate";
     public static final String USER_NOT_FOUND_MESSAGE = "User not found with username: ";
     public static final String USERNAME_UNAVAILABLE = "Username non disponibile";
@@ -17,7 +17,8 @@ public class MessageUtils {
     public static final String EMAIL_ALREADY_USED = "Email già utilizzata";
     public static final String INVALID_ROLE = "Ruolo non valido";
     public static final String CONFIRM_SIGNUP = "Conferma Registrazione";
-    public static final String ACCOUNT_NOT_CONFIRMED = "Account non ancora confermato";
+    public static final String WRONG_CONFIRM_CODE = "Codice Conferma ERRATO";
+    public static final String ACCOUNT_NOT_CONFIRMED = "L'account non è stato ancora confermato. Riceverete a breve il codice di conferma alla mail indicata in fase di registrazione";
     public static final String MAIL_BODY_CONFIRM_SIGNUP = """
             Gentile <username>,
             

@@ -83,6 +83,9 @@ public class AuthController {
                         null
                 ));
 
+                UserEntity userEntity = userService.findByUsername(signinModel.getUsername());
+                mailUtils.sendRegistrationMail(userEntity.getUsername(), userEntity.getEmail(), userEntity.getConfirmCode());
+
                 response.setEsito(MessageUtils.KO);
                 response.setMessage(MessageUtils.ACCOUNT_NOT_CONFIRMED);
             }
@@ -95,9 +98,31 @@ public class AuthController {
         return response;
     }
 
+    @PostMapping("/confirm")
+    public ResponseModel<?> confirm(@RequestBody ConfirmEmailModel confirmEmailModel) {
+        ResponseModel<?> response;
+
+        try {
+            if (confirmEmailModel.getConfirmCode().equals(userService.findByUsername(confirmEmailModel.getUsername()).getConfirmCode())) {
+                userService.confirmAccount(confirmEmailModel.getUsername());
+
+                response = new ResponseModel<>(MessageUtils.OK, MessageUtils.ACCOUNT_CONFIRMED);
+            } else {
+                response = new ResponseModel<>(MessageUtils.KO, MessageUtils.WRONG_CONFIRM_CODE);
+            }
+        } catch (Exception e) {
+            response = new ResponseModel<>(MessageUtils.KO, MessageUtils.MESSAGE_KO);
+
+            logger.error(e.getMessage());
+        }
+
+        return response;
+    }
+
     @PostMapping("/signup")
     public ResponseModel<?> signup(@RequestBody SignupModel signupModel) {
         ResponseModel<?> response;
+
         try {
             if (ERoleModel.USER.name().equals(signupModel.getRole())) {
                 if (userService.existsByUsername(signupModel.getUsername())) {

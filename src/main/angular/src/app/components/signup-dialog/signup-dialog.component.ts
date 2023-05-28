@@ -28,10 +28,12 @@ export class SignupDialogComponent implements OnInit {
     this.authService.signup(this.registerModel).subscribe(response => {
       if (response.esito === 'OK') {
         this.dialogRef.close();
-      } 
+        this.popupDialogService.openConfirmDialog(this.registerModel.username);
+      } else {
+        this.popupDialogService.openPopupDialog('350px', response);
+      }
         
       this.loading = false;
-      this.popupDialogService.openPopupDialog('350px', response);
     })
   }
 

@@ -29,7 +29,11 @@ export class AuthComponent implements OnInit {
             if (response.esito === 'OK') {
                 localStorage.setItem('token_jwt_lastwin', response.data.token);
             } else {
-                this.popupDialogService.openPopupDialog('350px', response);
+                this.popupDialogService.openPopupDialog('350px', response).subscribe(() => {
+                    if (response.message.includes("L'account non è stato ancora confermato")) {
+                        this.popupDialogService.openConfirmDialog(this.loginModel.username);
+                    }
+                });
             }
             
             this.loading = false;
